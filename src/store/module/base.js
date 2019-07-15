@@ -1,15 +1,35 @@
-import {localSave,localRead} from '@/utils' //引用之前写好的本地储存读写操作的两个方法
+import {
+    localSave,
+    localRead,
+    setToken
+} from '@/utils' //引用之前写好的本地储存读写操作的两个方法
+import {login} from '@/api/user'
 //请查看vuex官方文档 https://vuex.vuejs.org/zh/guide/state.html
 export default {
     state:{ //单一状态树
         local: localRead('local'),
     },
-    mutations:{ //变更状态
+    mutations:{ //变更状态 必須為同步
         setLocal (state, lang) {
             //存入本地储存
             localSave('local', lang)
             //立即更新
             state.local = lang
+        },
+    },
+    actions:{ //异步发行
+        login({commit}, userInfo) {
+            const { username, password,form,model } = userInfo
+            return new Promise((resolve, reject) => {
+                login({ username: username.trim(), password: password,form:form,model:model }).then(response => {
+                    const { data } = response;
+                    commit('SET_TOKEN', data.token)
+                    setToken(data.token)
+                    resolve(response)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
         },
     }
 }

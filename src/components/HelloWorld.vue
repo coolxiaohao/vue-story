@@ -30,9 +30,6 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
       <li>{{error404}}</li>
     </ul>
-    <ul>
-      <li>{{$t('test')}}</li>
-    </ul>
   </div>
 </template>
 

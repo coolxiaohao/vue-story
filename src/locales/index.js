@@ -14,10 +14,11 @@ Vue.use(VueI18n)
 
 // 自动根据浏览器系统语言设置语言
 const navLang = navigator.language
+// const local=
 //判断语言包是否正确
 const localLang = (navLang === 'zh-CN' || navLang === 'en-US'||navLang === 'zh-TW') ? navLang : false
 //拿到语言包名称
-let lang = localLang || localRead('local') || 'zh-CN'
+let lang = localRead('local')||localLang || 'zh-CN'
 //写入config
 Vue.config.lang = lang
 

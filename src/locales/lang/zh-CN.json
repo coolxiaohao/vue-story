@@ -1,3 +1,12 @@
 {
-  "error404": "这是404页面。"
+  "error404": "这是404页面。",
+  "login_title": "登陆",
+  "form1": "账号密码登陆",
+  "form2": "快速注册登陆",
+  "form3": "第三方登陆",
+  "login-name-null": "请输入用户名",
+  "login-pwd-null": "请输入密码",
+  "login-pwd-error": "密码长度不能小于6位",
+  "pwd-forgot": "忘记密码？",
+  "remember-pwd": "记住密码"
 }
