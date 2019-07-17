@@ -8,7 +8,7 @@ import {getToken} from '@/utils'
 const service = axios.create({
     baseURL: '/api', //使用代理yarn remove [package]
     withCredentials: true, // send cookies when cross-domain requests
-    timeout: 5000 // request timeout
+    timeout: 3000 // request timeout
 })
 
 // request interceptor
@@ -19,6 +19,7 @@ service.interceptors.request.use(
             // let each request carry token --['X-Token'] as a custom key.
             config.headers['X-Token'] = getToken()
         }
+        // config.timeout=1000
         return config
     },
     error => {
@@ -45,12 +46,8 @@ service.interceptors.response.use(
         // if the custom code is not 20000, it is judged as an error.
         if (res.code !== 200) {
             Message.error(res.msg || 'error');
-            // Message.error({
-            //     message: res.message || 'error',
-            //     type: 'error',
-            //     duration: 5 * 1000
-            // })
             if (res.code === 401) {
+                // this.next({name:'401'})
                 this.$router.push('/401');
             } else if (res.code === 404) {
                 this.$router.push('/404');
@@ -60,21 +57,12 @@ service.interceptors.response.use(
                 return null;
             } else if (res.code ===403) {
                 // to re-login
-                Message.error('您已经注销，您可以取消以停留在此页面，或再次登录!');
+                Message.error(this.$t('login.land-expiration'));
                 this.$router.push({path:'/login'});
-                // Message.error('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-                //     confirmButtonText: 'Re-Login',
-                //     cancelButtonText: 'Cancel',
-                //     type: 'warning'
-                // }).then(() => {
-                //     store.dispatch('base/resetToken').then(() => {
-                //         location.reload()
-                //     })
-                // })
             }
             return Promise.reject(res.msg || 'error')
         } else {
-                return res;
+            return res;
         }
     },
     error => {

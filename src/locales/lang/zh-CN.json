@@ -1,12 +1,22 @@
 {
-  "error404": "这是404页面。",
-  "login_title": "登陆",
-  "form1": "账号密码登陆",
-  "form2": "快速注册登陆",
-  "form3": "第三方登陆",
-  "login-name-null": "请输入用户名",
-  "login-pwd-null": "请输入密码",
-  "login-pwd-error": "密码长度不能小于6位",
-  "pwd-forgot": "忘记密码？",
-  "remember-pwd": "记住密码"
+  "login": {
+    "error404": "这是主页",
+    "login_title": "登陆",
+    "form1": "账号密码登陆",
+    "form2": "快速注册登陆",
+    "form3": "第三方登陆",
+    "login-name-null": "请输入用户名",
+    "login-pwd-null": "请输入密码",
+    "login-pwd-error": "密码长度不能小于6位",
+    "pwd-forgot": "忘记密码？",
+    "remember-pwd": "记住密码",
+    "login-success": "登陆成功！",
+    "login-error": "请求失败!",
+    "land-expiration": "您已经注销，请再次登录!"
+  },
+  "error": {
+    "500": "Oh~~鬼知道服务器经历了什么~",
+    "404": "Oh~~您的页面好像飞走了~",
+    "401": "Oh~~您没有浏览这个页面的权限~"
+  }
 }

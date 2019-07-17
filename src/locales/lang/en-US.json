@@ -1,12 +1,22 @@
 {
-  "error404": "This is a 404 page",
-  "login_title": "Sign In",
-  "form1": "Account Login",
-  "form2": "Fast Login",
-  "form3": "Third Party Login",
-  "login-name-null": "Please enter user name",
-  "login-pwd-null": "Please enter password",
-  "login-pwd-error": "Password length cannot be less than 6 bits",
-  "pwd-forgot": "forget the password?",
-  "remember-pwd": "remember the password"
+  "login": {
+    "error404": "This is a home page",
+    "login_title": "Sign In",
+    "form1": "Account Login",
+    "form2": "Fast Login",
+    "form3": "Third Party Login",
+    "login-name-null": "please enter user name",
+    "login-pwd-null": "Please enter password",
+    "login-pwd-error": "Password length cannot be less than 6 bits",
+    "pwd-forgot": "forget the password?",
+    "remember-pwd": "remember the password",
+    "login-success": "login succeeds！",
+    "login-error": "Bad request!",
+    "land-expiration": "You have logged out, please log in again!"
+  },
+  "error": {
+    "500": "Oh~~ Who knows what happened to the server ~",
+    "404": "Oh~~ your page seems to fly away ~",
+    "401": "Oh~~ you do not have access to this page ~"
+  }
 }

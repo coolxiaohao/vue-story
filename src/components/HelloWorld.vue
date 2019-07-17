@@ -28,7 +28,7 @@
       <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-      <li>{{error404}}</li>
+      <li>{{$t('login.error404')}}</li>
     </ul>
   </div>
 </template>
@@ -44,11 +44,6 @@ export default {
   props: {
     msg: String
   },
-  computed: {
-    error404 () {
-      return this.$t('error404')
-    },
-  }
 }
 </script>
 

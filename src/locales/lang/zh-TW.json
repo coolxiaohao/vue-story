@@ -1,12 +1,22 @@
 {
-  "error404": "這是404頁面。",
-  "login_title": "登陸",
-  "form1": "賬號密碼登陸",
-  "form2": "快速注冊登陸",
-  "form3": "第三方登陸",
-  "login-name-null": "請輸入用戶名",
-  "login-pwd-null": "請輸入密碼",
-  "login-pwd-error": "密碼長度不能小於6位",
-  "pwd-forgot": "忘記密碼?",
-  "remember-pwd": "記住密碼"
+  "login": {
+    "error404": "這是主頁",
+    "login_title": "登陸",
+    "form1": "賬號密碼登陸",
+    "form2": "快速注冊登陸",
+    "form3": "第三方登陸",
+    "login-name-null": "請輸入用戶名",
+    "login-pwd-null": "請輸入密碼",
+    "login-pwd-error": "密碼長度不能小於6位",
+    "pwd-forgot": "忘記密碼?",
+    "remember-pwd": "記住密碼",
+    "login-success": "登陸成功！",
+    "login-error": "請求失敗！",
+    "land-expiration": "您已經注銷，請再次登陸!"
+  },
+  "error": {
+    "500": "Oh~~鬼知道服務器經歷了什麽~",
+    "404": "Oh~~您的頁面好像飛走了~",
+    "401": "Oh~~您沒有瀏覽這個頁面的權限哦~"
+  }
 }
