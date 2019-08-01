@@ -5081,6 +5081,13 @@ isstream@~0.1.2:
   resolved "https://registry.npm.taobao.org/isstream/download/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
+iview-loader@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npm.taobao.org/iview-loader/download/iview-loader-1.2.2.tgz#abdf52074de93c82ef01a2c293deb82c8cbbbde0"
+  integrity sha1-q99SB03pPILvAaLCk964LIy7veA=
+  dependencies:
+    loader-utils "^1.1.0"
+
 iview@^3.0.1:
   version "3.4.2"
   resolved "https://registry.npm.taobao.org/iview/download/iview-3.4.2.tgz#1deafe8183fe29b9b33179d85faa37b3813b0f73"

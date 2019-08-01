@@ -14,9 +14,18 @@
     "login-error": "Bad request!",
     "land-expiration": "You have logged out, please log in again!"
   },
+  "error_page": "error page",
   "error": {
     "500": "Oh~~ Who knows what happened to the server ~",
     "404": "Oh~~ your page seems to fly away ~",
     "401": "Oh~~ you do not have access to this page ~"
-  }
+  },
+  "admin_login": "admin login",
+  "index": "home",
+  "admin_index": "index",
+  "home_index": "home",
+  "app_index": "home",
+  "404": "404",
+  "401": "401",
+  "500": "500"
 }

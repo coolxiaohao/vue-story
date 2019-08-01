@@ -11,7 +11,9 @@ import '@/plugins/iview.js'
 //设置自定义主题
 import '@/index.less'
 
-
+/**
+ * i18n 配置
+ */
 Vue.use(iView,{
   i18n: (key, value) => i18n.t(key, value),
 })
@@ -21,11 +23,13 @@ Vue.use(iView,{
  */
 Vue.config.productionTip = false
 /**
- * @description 全局注册应用配置
- * @type {{useI18n, baseUrl, plugin, cookieExpires, homeName, title}}
+ * 项目配置项
+ * @type {{useI18n, baseUrl, cookieExpires, homeName, title}}
  */
-
 Vue.prototype.$config=config
+/**
+ * 实例化
+ */
 new Vue({
   router,
   store,

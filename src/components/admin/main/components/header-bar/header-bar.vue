@@ -1,0 +1,37 @@
+<template>
+  <div class="header-bar">
+    <!--收缩按钮-->
+    <sider-trigger  :collapsed="collapsed" icon="md-menu" @on-change="handleCollpasedChange"></sider-trigger>
+    <!--当前页路径-->
+    <custom-bread-crumb show-icon  style="margin-left: 30px;" :list="breadCrumbList"></custom-bread-crumb>
+    <!--用户信息，多语言设置等-->
+    <div class="custom-content-con">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+<script>
+import siderTrigger from './sider-trigger'
+import customBreadCrumb from './custom-bread-crumb'
+import './header-bar.less'
+export default {
+  name: 'HeaderBar',
+  components: {
+    siderTrigger,
+    customBreadCrumb
+  },
+  props: {
+    collapsed: Boolean
+  },
+  computed: {
+    breadCrumbList () {
+      return this.$store.state.app.breadCrumbList
+    }
+  },
+  methods: {
+    handleCollpasedChange (state) {
+      this.$emit('on-coll-change', state)
+    }
+  }
+}
+</script>

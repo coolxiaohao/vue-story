@@ -11,7 +11,7 @@ export function login(data) {
 
 export function getInfo(token) {
     return request({
-        url: '/admin/info',
+        url: '/routers/info',
         method: 'get',
         params: { token }
     })

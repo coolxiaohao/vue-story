@@ -1,12 +1,11 @@
 module.exports = {
-    css:{
-        loaderOptions:{
-            less:{ //解决less文件无法调用的问题
+    css: {
+        loaderOptions: {
+            less: { //解决less文件无法调用的问题
                 javascriptEnabled: true
             }
         }
     },
-
     devServer: {//设置代理
         proxy: {
             '/api': {
@@ -37,13 +36,15 @@ module.exports = {
     },
     // 如果你不需要使用eslint，把lintOnSave设为false即可
     lintOnSave: false,
-
+    /**
+     * @desc 第三方插件设置
+     */
     pluginOptions: {
-      i18n: {
-        locale: 'en-US', //  项目本地化的区域设置
-        fallbackLocale: 'en-US',//项目本地化的后备区域设置
-        localeDir: 'locales/lang', //项目的商店本地化消息的目录
-        enableInSFC: false //在单个文件组件中启用区域设置消息
-      }
+        i18n: {
+            locale: 'en-US', //  项目本地化的区域设置
+            fallbackLocale: 'en-US',//项目本地化的后备区域设置
+            localeDir: 'locales/lang', //项目的商店本地化消息的目录
+            enableInSFC: false //在单个文件组件中启用区域设置消息
+        }
     }
 }

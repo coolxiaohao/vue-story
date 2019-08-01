@@ -8,7 +8,7 @@
                     <source :src="videoOptions"/>
                 </video>
             </div>
-        <div class="login-content">
+        <div class="login-content" >
             <div class="login-card">
                 <Card icon="log-in" :title="this.$t('login.login_title')">
                     <Tabs>
@@ -63,6 +63,7 @@
 
 <script>
     import backMp4 from '@/assets/admin/login/login.mp4'
+    import {mapMutations} from "vuex";
 
     export default {
         name: "login",
@@ -90,6 +91,9 @@
             }
         },
         methods: {
+            ...mapMutations([
+                'setPort',
+            ]),
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
@@ -109,5 +113,8 @@
                 })
             }
         },
+        mounted(){
+            this.setPort('admin')
+        }
     }
 </script>

@@ -8,6 +8,7 @@ import {login} from '@/api/user'
 export default {
     state:{ //单一状态树
         local: localRead('local'),
+        access: '',
     },
     mutations:{ //变更状态 必須為同步
         setLocal (state, lang) {
@@ -97,7 +98,7 @@ export default {
                 //   reject('getInfo: roles must be a non-null array!')
                 // }
 
-                // commit('SET_ROLES', ["admin"])
+                // commit('SET_ROLES', ["routers"])
                 commit('SET_NAME', data.adminName)
                 commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
                 commit('SET_INTRODUCTION', 'I am a super administrator')

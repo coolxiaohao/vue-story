@@ -36,6 +36,7 @@ const showThisMenuEle = (item, access) => {
  * @returns {Array}
  */
 export const getMenuByRouter = (list, access) => {
+    // console.log(list)
     let res = []
     forEach(list, item => {
         if (!item.meta || (item.meta && !item.meta.hideInMenu)) {
@@ -51,6 +52,7 @@ export const getMenuByRouter = (list, access) => {
             if (showThisMenuEle(item, access)) res.push(obj)
         }
     })
+    // console.log(res)
     return res
 }
 
@@ -59,7 +61,9 @@ export const getMenuByRouter = (list, access) => {
  * @returns {Array}
  */
 export const getBreadCrumbList = (route, homeRoute) => {
+    // console.log(route)
     let homeItem = {...homeRoute, icon: homeRoute.meta.icon}
+    // console.log(homeItem)
     let routeMetched = route.matched
     if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
     let res = routeMetched.filter(item => {
@@ -80,6 +84,7 @@ export const getBreadCrumbList = (route, homeRoute) => {
     res = res.filter(item => {
         return !item.meta.hideInMenu
     })
+
     return [{...homeItem, to: homeRoute.path}, ...res]
 }
 
@@ -100,12 +105,23 @@ export const getRouteTitleHandled = (route) => {
 
 export const showTitle = (item, vm) => {
     let {title, __titleIsFunction__} = item.meta
-    if (!title) return
+    if (!title) {
+        return
+    }
     if (useI18n) {
-        if (title.includes('{{') && title.includes('}}') && useI18n) title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
-        else if (__titleIsFunction__) title = item.meta.title
-        else title = vm.$t(item.name)
-    } else title = (item.meta && item.meta.title) || item.name
+        if (title.includes('{{') && title.includes('}}') && useI18n) {
+            title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
+        }
+        else if (__titleIsFunction__) {
+            title = item.meta.title
+        }
+        else {
+            console.log(vm.$t(item.name))
+            title = vm.$t(item.name)
+        }
+    } else {
+        title = (item.meta && item.meta.title) || item.name
+    }
     return title
 }
 
@@ -137,9 +153,11 @@ export const getHomeRoute = (routers, homeName = 'home') => {
             let res = getHomeRoute(item.children, homeName)
             if (res.name) return res
         } else {
-            if (item.name === homeName) homeRoute = item
+            // console.log(item)
+            if (item.name === homeName)homeRoute = item;
         }
     }
+    console.log(homeRoute)
     return homeRoute
 }
 
@@ -157,7 +175,7 @@ export const getNewTagList = (list, newRoute) => {
 }
 
 /**
- * @param {*} access 用户权限数组，如 ['super_admin', 'admin']
+ * @param {*} access 用户权限数组，如 ['super_admin', 'routers']
  * @param {*} route 路由列表
  */
 const hasAccess = (access, route) => {

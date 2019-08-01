@@ -1,66 +1,64 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/views/Home.vue'
-import Language from '@/components/Language'
-import Admin_Login from '@/views/admin/login/login'
-import error404 from '@/views/error-page/404.vue'
-import error401 from '@/views/error-page/401.vue'
-import error500 from '@/views/error-page/500.vue'
-import Main from  '@/components/admin/main'
+import {setTitle} from "@/utils";
+import Router from 'vue-router';
+import iView from "iview";
+import store from '@/store'
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: '_home',
-      redirect: '/admin/index',
-      component: Main,
-      meta: {
-        hideInMenu: true,
-        notCache: true
-      },
-      children: [
-        {
-          path: '/admin/index',
-          name: 'admin_index',
-          meta: {
-            hideInMenu: true,
-            title: '首页',
-            notCache: true,
-            icon: 'md-home'
-          },
-          component: Home
-        }
-      ]
-    },
-    {
-      path:'/language',
-      name:'language',
-      component:Language
-    },
-    {
-      path: '/admin/login',
-      name:'admin_login',
-      component:Admin_Login
-    },
-    {
-      path: '/404',
-      name: '404',
-      component: error404
-    },
-    {
-      path: '/401',
-      name: '401',
-      component: error401
-    },
-    {
-      path: '/500',
-      name: '500',
-      component: error500
-    }
-  ]
+//指定Routers js文件
+const modulesFiles = require.context('@/router/routers', false, /\.js$/)
+//扫描
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+    //名称
+    const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+    //值
+    const value = modulesFiles(modulePath)
+    //以数组的形式返回
+    modules[moduleName] = value.default
+    return modules
+}, {});
+
+//获取端口 admin home app
+let port = store.state.app.port
+//如果本地缓存没有 则进入默认入口
+if (typeof modules[port] === "undefined" || port === "") {
+    port = 'base'
+}
+//获取相应的路由
+const routers = modules[port];
+//实例化
+const router = new Router({
+    routes: routers,
+    mode: 'history'
 })
+
+/**
+ * to 请求页面信息
+ * form 上一个页面的信息
+ * next 跳转函数
+ */
+router.beforeEach((to, from, next) => {
+        iView.LoadingBar.start() //进度条开始
+        //判断是否存在该路由
+        if (to.name == null || to.name === "") {
+            next({
+                name: '404'
+            })
+        } else {
+            next()
+        }
+    }
+)
+
+/**
+ * 屏蔽下拉条
+ */
+router.afterEach(to => {
+    setTitle(to, router.app)
+    iView.LoadingBar.finish() //进度条结束
+    window.scrollTo(0, 0)
+})
+
+export default router
+
