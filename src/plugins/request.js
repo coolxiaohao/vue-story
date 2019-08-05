@@ -53,12 +53,10 @@ service.interceptors.response.use(
                 this.$router.push('/404');
             } else if (res.code === 500) {
                 this.$router.push('/500');
-            } else if (res.code === 400) {
-                return null;
-            } else if (res.code ===403) {
+            }else if (res.code ===403) {
                 // to re-login
                 Message.error(this.$t('login.land-expiration'));
-                this.$router.push({path:'/login'});
+                this.$router.replace({name:this.$store.state.app});
             }
             return Promise.reject(res.msg || 'error')
         } else {

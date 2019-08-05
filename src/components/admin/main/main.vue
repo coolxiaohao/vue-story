@@ -1,6 +1,6 @@
 <template>
     <Layout style="height: 100%" class="main">
-        <Sider hide-trigger collapsible :width="256" :collapsed-width="86" v-model="collapsed" class="left-sider"
+        <Sider hide-trigger collapsible :width="300" :collapsed-width="86" v-model="collapsed" class="left-sider"
                :style="{overflow: 'hidden'}">
             <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed"
                        @on-select="turnToPage"
@@ -15,13 +15,16 @@
         <Layout>
             <Header class="header-con">
                 <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
-                    <!--<user :message-unread-count="unreadCount" :user-avatar="userAvatar"/>-->
+                    <right-layer />
+                    <!--用户头像插件-->
+                    <user :message-unread-count="unreadCount" style="margin-right: 10px;" :user-avatar="userAvatar"/>
                     <!--多语言组件-->
                     <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;"
                               :lang="local"/>
                     <!--<error-store v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader"
                                  :has-read="hasReadErrorPage" :count="errorCount"></error-store>-->
-                    <!--<fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>-->
+                    <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
+
                 </header-bar>
             </Header>
             <Content class="main-content-con">
@@ -41,8 +44,11 @@
     </Layout>
 </template>
 <script>
+    import RightLayer from '@/components/admin/main/components/right-layer'
     import Language from '@/components/Language'
+    import Fullscreen from '@/components/admin/main/components/fullscreen'
     import TagsNav from '@/components/admin/main/components/tags-nav'
+    import User from '@/components/admin/main/components/user'
     import ABackTop from '@/components/admin/main/components/a-back-top'
     import SideMenu from '@/components/admin/main/components/side-menu'
     import minLogo from '@/assets/admin/main/index_rabbit.gif'
@@ -53,8 +59,11 @@
     import {getNewTagList, routeEqual} from "@/utils";
 
     export default {
-        name: "main",
+        name: "Main",
         components: {
+            RightLayer,
+            Fullscreen,
+            User,
             Language,
             SideMenu,
             HeaderBar,
@@ -118,12 +127,12 @@
             tagNavList() {
                 return this.$store.state.app.tagNavList
             },
-            // tagRouter() {
-            //     return this.$store.state.app.tagRouter
-            // },
-            // userAvatar() {
-            //     return this.$store.state.user.avatarImgPath
-            // },
+            tagRouter() {
+                return this.$store.state.app.tagRouter
+            },
+            userAvatar() {
+                return this.$store.state.base.avatarImgPath
+            },
             cacheList() {
                 const list = ['ParentView', ...this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []]
                 return list
@@ -137,9 +146,9 @@
             // hasReadErrorPage() {
             //     return this.$store.state.app.hasReadErrorPage
             // },
-            // unreadCount() {
-            //     return this.$store.state.user.unreadCount
-            // }
+            unreadCount() {
+                return this.$store.state.base.unreadCount
+            }
         },
         watch: { /*watch的作用可以监控一个值的变换，并调用因为变化需要执行的方法。可以通过watch动态改变关联的状态。*/
             '$route'(newRoute) {

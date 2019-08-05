@@ -33,23 +33,23 @@ const router = new Router({
     mode: 'history'
 })
 
+
 /**
  * to 请求页面信息
  * form 上一个页面的信息
  * next 跳转函数
  */
 router.beforeEach((to, from, next) => {
-        iView.LoadingBar.start() //进度条开始
-        //判断是否存在该路由
-        if (to.name == null || to.name === "") {
-            next({
-                name: '404'
-            })
-        } else {
-            next()
-        }
+    iView.LoadingBar.start() //进度条开始
+    //判断是否存在该路由
+    if (to.name !== null && to.name !== "" && to.matched.length > 0) {
+        next()
+    } else {
+        next({
+            name: '404'
+        })
     }
-)
+})
 
 /**
  * 屏蔽下拉条

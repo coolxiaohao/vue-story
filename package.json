@@ -8,15 +8,23 @@
     "build": "vue-cli-service build",
     "i18n:report": "vue-cli-service i18n:report --src=src/views/**/**/*.vue --locales=src/locales/lang/*.json",
     "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "translation": "vue-cli-service translation --src=src/views/**/**/*.vue --locales=src/locales/lang/*.json"
+  },
+  "vuePlugins": {
+    "service": [
+      "./src/cli/translation"
+    ]
   },
   "dependencies": {
     "clipboard": "^2.0.4",
     "core-js": "^2.6.5",
+    "google-translate-api-china": "^2.3.2",
     "iview": "^3.0.1",
     "iview-loader": "^1.2.2",
     "js-cookie": "^2.2.0",
     "register-service-worker": "^1.6.2",
+    "tree-table-vue": "^1.1.0",
     "vue": "^2.6.10",
     "vue-cli-plugin-i18n": "^0.6.0",
     "vue-i18n": "^8.12.0",

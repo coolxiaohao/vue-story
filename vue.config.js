@@ -45,6 +45,11 @@ module.exports = {
             fallbackLocale: 'en-US',//项目本地化的后备区域设置
             localeDir: 'locales/lang', //项目的商店本地化消息的目录
             enableInSFC: false //在单个文件组件中启用区域设置消息
+        },
+        translation: {
+            // vue-cli-plugin-translation 插件可以作为 `projectOptions.pluginOptions.translation` 访问这些选项，其他插件也可以拿到
+            src: '*.vue',
+            locale:'en-US'
         }
     }
 }

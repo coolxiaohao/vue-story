@@ -1,4 +1,7 @@
 {
+  "401": "401",
+  "404": "404",
+  "500": "500",
   "login": {
     "error404": "This is a home page",
     "login_title": "Sign In",
@@ -16,16 +19,15 @@
   },
   "error_page": "error page",
   "error": {
-    "500": "Oh~~ Who knows what happened to the server ~",
+    "401": "Oh~~ you do not have access to this page ~",
     "404": "Oh~~ your page seems to fly away ~",
-    "401": "Oh~~ you do not have access to this page ~"
+    "500": "Oh~~ Who knows what happened to the server ~"
   },
   "admin_login": "admin login",
   "index": "home",
   "admin_index": "index",
   "home_index": "home",
   "app_index": "home",
-  "404": "404",
-  "401": "401",
-  "500": "500"
+  "测试谷歌翻译插件": "Test the Google Translate Plugin",
+  "我也不知道这是啥": "I don't know if this is 啥"
 }

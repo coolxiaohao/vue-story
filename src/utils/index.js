@@ -36,7 +36,6 @@ const showThisMenuEle = (item, access) => {
  * @returns {Array}
  */
 export const getMenuByRouter = (list, access) => {
-    // console.log(list)
     let res = []
     forEach(list, item => {
         if (!item.meta || (item.meta && !item.meta.hideInMenu)) {
@@ -52,7 +51,6 @@ export const getMenuByRouter = (list, access) => {
             if (showThisMenuEle(item, access)) res.push(obj)
         }
     })
-    // console.log(res)
     return res
 }
 
@@ -61,9 +59,7 @@ export const getMenuByRouter = (list, access) => {
  * @returns {Array}
  */
 export const getBreadCrumbList = (route, homeRoute) => {
-    // console.log(route)
     let homeItem = {...homeRoute, icon: homeRoute.meta.icon}
-    // console.log(homeItem)
     let routeMetched = route.matched
     if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
     let res = routeMetched.filter(item => {
@@ -116,7 +112,6 @@ export const showTitle = (item, vm) => {
             title = item.meta.title
         }
         else {
-            console.log(vm.$t(item.name))
             title = vm.$t(item.name)
         }
     } else {
@@ -153,11 +148,9 @@ export const getHomeRoute = (routers, homeName = 'home') => {
             let res = getHomeRoute(item.children, homeName)
             if (res.name) return res
         } else {
-            // console.log(item)
             if (item.name === homeName)homeRoute = item;
         }
     }
-    console.log(homeRoute)
     return homeRoute
 }
 
