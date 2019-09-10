@@ -5,10 +5,14 @@ import {forEach, hasOneOf, objEqual} from '@/utils/tools'
 
 const {title, cookieExpires, useI18n} = config
 
-export const TOKEN_KEY = 'token'
+export const TOKEN_KEY = 'admin_token'
 
 export const setToken = (token) => {
     Cookies.set(TOKEN_KEY, token, {expires: cookieExpires || 1})
+}
+
+export const delToken = () =>{
+    Cookies.remove(TOKEN_KEY)
 }
 
 export const getToken = () => {
@@ -16,9 +20,24 @@ export const getToken = () => {
     if (token) return token
     else return false
 }
-
-export function removeToken() {
-    return Cookies.remove(TOKEN_KEY)
+/**
+ * 添加cookie值
+ * @param key
+ * @param value
+ * @returns {*}
+ */
+export const setCookie=(key,value)=> {
+    return Cookies.set(key,value,{expires: 7 || 1}) //默认七天
+}
+/**
+ * 读取cookie
+ * @param key
+ * @returns {boolean|*}
+ */
+export const getCookie=(key)=>{
+    const value = Cookies.get(key)
+    if (value) return value
+    else return false
 }
 
 export const hasChild = (item) => {

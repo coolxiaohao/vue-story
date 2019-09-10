@@ -63,7 +63,6 @@ function get(text) {
     });
 }
 
-
 function updateTKK() {
     return new Promise(function (resolve, reject) {
         var now = Math.floor(Date.now() / 3600000);

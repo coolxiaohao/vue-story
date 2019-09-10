@@ -1,20 +1,38 @@
 import {
     localSave,
     localRead,
-    setToken
+    setToken,
+    setCookie,
+    getCookie,
+    getToken,
 } from '@/utils' //引用之前写好的本地储存读写操作的两个方法
-import {login,logout} from '@/api/user'
+import {login,logout,getAdminInfo} from '@/api/admin'
 //请查看vuex官方文档 https://vuex.vuejs.org/zh/guide/state.html
 export default {
     state:{ //单一状态树
         local: localRead('local'),
+        token: getToken(),
         access: '',
+        admin_name: '',
+        admin_id: 0,
+        single:localRead('single'),
         unreadCount: 0,
         avatarImgPath:'',
+        hasGetInfo: false,
     },
     mutations:{ //变更状态 必須為同步
         setAvatar (state, avatarPath) {
             state.avatarImgPath = avatarPath
+        },
+        setToken (state, token) {
+            state.token = token
+            setToken(token)
+        },
+        setAdminName (state, adminName) {
+            state.admin_name = adminName
+        },
+        setAdminId (state, adminId) {
+            state.admin_id = adminId
         },
         setLocal (state, lang) {
             //存入本地储存
@@ -22,21 +40,12 @@ export default {
             //立即更新
             state.local = lang
         },
-        // 退出登录
-        handleLogOut ({ state, commit }) {
-            return new Promise((resolve, reject) => {
-                logout(state.token).then(() => {
-                    commit('setToken', '')
-                    commit('setAccess', [])
-                    resolve()
-                }).catch(err => {
-                    reject(err)
-                })
-                // 如果你的退出登录无需请求接口，则可以直接使用下面三行代码而无需使用logout调用接口
-                // commit('setToken', '')
-                // commit('setAccess', [])
-                // resolve()
-            })
+        setHasGetInfo (state, status) {
+            state.hasGetInfo = status
+        },
+        setSingle(state,single){
+            setCookie('single',single)
+            state.single=single
         },
     },
     actions:{ //异步发行
@@ -45,12 +54,52 @@ export default {
             return new Promise((resolve, reject) => {
                 login({ username: username.trim(), password: password,form:form,model:model }).then(response => {
                     const { data } = response;
-                    commit('SET_TOKEN', data.token)
-                    setToken(data.token)
+                    commit('setToken', data.token)
+                    // console.log(getToken())
+                    // setToken(data.token)
+                    // console.log(getToken())
                     resolve(response)
                 }).catch(error => {
                     reject(error)
                 })
+            })
+        },
+        // 获取管理员相关信息
+        getAdminInfo ({ state, commit }) {
+            // console.log(state.token)
+            return new Promise((resolve, reject) => {
+                try {
+                    getAdminInfo(state.token).then(res => {
+                        const data = res.data
+                        // console.log(res)
+                        commit('setAvatar', data.img)
+                        commit('setAdminName', data.adminName)
+                        commit('setAdminId', data.id)
+                        // commit('setAccess', data.access)
+                        commit('setHasGetInfo', true)
+                        resolve(data)
+                    }).catch(err => {
+                        reject(err)
+                    })
+                } catch (error) {
+                    reject(error)
+                }
+            })
+        },
+        // 退出登录
+        handleLogOut ({ state, commit }) {
+            return new Promise((resolve, reject) => {
+                logout(state.token).then(() => {
+                    commit('setToken', '')
+                    // commit('setAccess', [])
+                    resolve()
+                }).catch(err => {
+                    reject(err)
+                })
+                // 如果你的退出登录无需请求接口，则可以直接使用下面三行代码而无需使用logout调用接口
+                // commit('setToken', '')
+                // commit('setAccess', [])
+                // resolve()
             })
         },
     }

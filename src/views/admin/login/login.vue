@@ -21,18 +21,18 @@
                                         <Icon type="ios-person-outline" slot="prepend"></Icon>
                                     </Input>
                                 </FormItem>
-                                <FormItem prop="password">
+                                <FormItem prop="password" style="margin-bottom:10px;">
                                     <Input type="password" v-model="formInline.password"
                                            @keyup.enter.native="handleSubmit('formInline')"
                                            :placeholder="$t('login.login-pwd-null')">
                                         <Icon type="ios-lock-outline" slot="prepend"></Icon>
                                     </Input>
                                 </FormItem>
-                                <FormItem class="not-margin">
+                                <FormItem class="not-margin" style="margin-bottom:0.1rem;">
                                     <Row>
                                         <Col class="col-rtp-left" :xs="{ span: 12, offset: 0 }"
                                              :lg="{ span: 12, offset: 0 }">
-                                            <Checkbox v-model="single"><span class="rtp">{{$t('login.remember-pwd')}}</span>
+                                            <Checkbox v-model="formInline.single"><span class="rtp">{{$t('login.remember-pwd')}}</span>
                                             </Checkbox>
                                         </Col>
                                         <Col class="col-rtp-right" :xs="{ span: 12, offset: 0 }"
@@ -41,7 +41,7 @@
                                         </Col>
                                     </Row>
                                 </FormItem>
-                                <FormItem>
+                                <FormItem style="margin-bottom:10px;">
                                     <Button type="primary" long @click="handleSubmit('formInline')">
                                         {{$t('login.login_title')}}
                                     </Button>
@@ -72,10 +72,11 @@
         data() {
             return {
                 formInline: {
-                    username: '',
-                    password: '',
+                    username:this.$store.state.base.single.username,
+                    password: this.$store.state.base.single.password,
+                    single:this.$store.state.base.single.single,
                     form: '',
-                    model: 'admin'
+                    model: 'admin',
                 },
                 ruleInline: {
                     username: [
@@ -86,13 +87,13 @@
                         {type: 'string', min: 6, message: this.$t('login.login-pwd-error'), trigger: 'blur'}
                     ]
                 },
-                single: false,
                 videoOptions: backMp4,
             }
         },
         methods: {
             ...mapMutations([
                 'setPort',
+                'setSingle'
             ]),
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
@@ -101,8 +102,16 @@
                         //先请求store文件下的xxxx/xxxx方法
                         this.$store.dispatch("login", this.formInline).then(d => {
                             if (d.code && d.code == 200) {
+                                //判断是否记住密码
+                                if (this.formInline.single){
+                                    let single={}
+                                    single.username=this.formInline.username
+                                    single.password=this.formInline.password
+                                    single.single=this.formInline.single
+                                    this.setSingle(single)
+                                }
                                 this.$Message.success(this.$t('login.login-success'));
-                                this.$router.push({path: '/', query: {data: d}})
+                                this.$router.push({path: '/'})
                             } else {
                                 this.$Message.error(d.msg);
                             }
@@ -115,6 +124,19 @@
         },
         mounted(){
             this.setPort('admin')
+        },
+        computed:{ //依赖值设置在此 也就是依赖其它的属性计算所得出最后的值
+            // userName(){
+            //     console.log(this.$store.state.base.single.username)
+            //     return this.$store.state.base.single.username
+            // },
+            // password(){
+            //     console.log(this.$store.state.base.single.password)
+            //     return  this.$store.state.base.single.password
+            // },
+            // single(){
+            //     return  this.$store.state.base.single.single
+            // },
         }
     }
 </script>

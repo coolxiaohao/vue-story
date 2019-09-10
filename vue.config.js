@@ -1,4 +1,13 @@
+const path = require('path');
+
+const resolve = dir => {
+    return path.join(__dirname, dir)
+};
+const BASE_URL = process.env.NODE_ENV === 'production'
+    ? '/'
+    : '/';
 module.exports = {
+    publicPath:BASE_URL,
     css: {
         loaderOptions: {
             less: { //解决less文件无法调用的问题
@@ -36,8 +45,14 @@ module.exports = {
     },
     // 如果你不需要使用eslint，把lintOnSave设为false即可
     lintOnSave: false,
+    chainWebpack:config => {
+        config.resolve.alias
+            .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
+            .set('_c', resolve('src/components'))
+            // .set('_c', resolve('src/components'))
+    },
     /**
-     * @desc 第三方插件设置
+     * 第三方插件设置
      */
     pluginOptions: {
         i18n: {
@@ -46,10 +61,11 @@ module.exports = {
             localeDir: 'locales/lang', //项目的商店本地化消息的目录
             enableInSFC: false //在单个文件组件中启用区域设置消息
         },
+        //自定义指令
         translation: {
             // vue-cli-plugin-translation 插件可以作为 `projectOptions.pluginOptions.translation` 访问这些选项，其他插件也可以拿到
             src: '*.vue',
-            locale:'en-US'
-        }
+            locale: 'en-US'
+        },
     }
-}
+};

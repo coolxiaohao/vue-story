@@ -14,9 +14,9 @@ const querystring = require('querystring');
 const got = require('got');
 const safeEval = require('safe-eval');
 const languages = require('google-translate-api-china').languages
-const token = require('./google')
+const token = require('./google')//谷歌
 const i18nExtract = require('vue-i18n-extract').default
-const fs = require("fs")
+const fs = require("fs") //文件数据处理
 /**
  * 类型
  * @type {number}

@@ -3,7 +3,7 @@
     <!--收缩按钮-->
     <sider-trigger  :collapsed="collapsed" icon="md-menu" @on-change="handleCollpasedChange"></sider-trigger>
     <!--当前页路径-->
-    <custom-bread-crumb show-icon  style="margin-left: 30px;" :list="breadCrumbList"></custom-bread-crumb>
+    <custom-bread-crumb show-icon  style="margin-left: 20px;" :list="breadCrumbList"></custom-bread-crumb>
     <!--用户信息，多语言设置等-->
     <div class="custom-content-con">
       <slot></slot>

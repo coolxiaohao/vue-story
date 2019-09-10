@@ -6,11 +6,11 @@
       </Badge>
       <Icon :size="18" type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
-        <DropdownItem>个人信息</DropdownItem>
+        <DropdownItem>{{$t('个人信息')}}</DropdownItem>
         <DropdownItem name="message">
-          消息中心<Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
+            {{$t('消息中心')}}<Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
         </DropdownItem>
-        <DropdownItem name="logout">退出登录</DropdownItem>
+        <DropdownItem name="logout">{{$t('退出登录')}}</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   </div>
@@ -37,6 +37,7 @@ export default {
     ]),
     logout () {
       this.handleLogOut().then(() => {
+        this.$Message.success(this.$t('退出成功'));
         this.$router.push({
           name: 'login'
         })

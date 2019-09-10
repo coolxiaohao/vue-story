@@ -21,17 +21,17 @@ export const getAdminInfo = (token) => {
     })
 }
 
-export function getInfo(token) {
+export const logout = (token) => {
     return request({
-        url: '/routers/info',
-        method: 'get',
-        params: {token}
-    })
-}
-
-export function logout() {
-    return request({
-        url: '/user/logout',
+        url: '/base/logout',
         method: 'post'
     })
 }
+
+// export function getInfo(token) {
+//     return request({
+//         url: '/routers/info',
+//         method: 'get',
+//         params: {token}
+//     })
+// }

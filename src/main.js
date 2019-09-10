@@ -1,12 +1,21 @@
+//vue
 import Vue from 'vue'
+//主程入口
 import App from '@/App.vue'
+//router 路由
 import router from '@/router'
+//vuex 状态管理
 import store from '@/store'
+//i18n国际化
 import i18n from '@/locales'
+//自定义配置
 import config from '@/config'
+//iview
 import iView from "iview";
+//axios 请求
 import '@/plugins/axios'
 import '@/registerServiceWorker'
+//iview.js
 import '@/plugins/iview.js'
 //设置自定义主题
 import '@/index.less'
