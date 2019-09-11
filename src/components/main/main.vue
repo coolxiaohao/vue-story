@@ -1,21 +1,24 @@
 <template>
-    <Layout style="height: 100%" class="main">
-        <Sider hide-trigger collapsible :width="300" :collapsed-width="90" v-model="collapsed" class="left-sider"
-               :style="{overflow: 'hidden'}">
-            <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed"
+    <Layout class="main">
+        <!--左侧边栏-->
+        <Sider breakpoint="md" hide-trigger collapsible :collapsed-width="64" :width="264" v-model="collapsed">
+            <side-menu accordion ref="sideMenu"  :active-name="$route.name" :collapsed="collapsed"
                        @on-select="turnToPage"
                        :menu-list="menuList">
                 <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
                 <div class="logo-con">
-                    <img v-show="!collapsed" :src="maxLogo" key="max-logo"/>
-                    <img v-show="collapsed" :src="minLogo" key="min-logo"/>
+                    <img v-show="!collapsed" style="max-width: 254px;" :src="maxLogo" key="max-logo"/>
+                    <img v-show="collapsed"  style="max-width: 48px;" :src="minLogo" key="min-logo"/>
                 </div>
+                <h2 v-show="!collapsed" style="text-align: center;margin-top: 0.5rem;margin-bottom: 1rem;">
+                    {{$t('欢迎您')}}!{{adminName}}</h2>
             </side-menu>
         </Sider>
         <Layout>
+            <!--头部-->
             <Header class="header-con">
-                <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
-                    <right-layer />
+                <header_bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
+                    <right-layer/>
                     <!--用户头像插件-->
                     <user :message-unread-count="unreadCount" style="margin-right: 10px;" :user-avatar="userAvatar"/>
                     <!--多语言组件-->
@@ -23,15 +26,17 @@
                               :lang="local"/>
                     <!--<error-store v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader"
                                  :has-read="hasReadErrorPage" :count="errorCount"></error-store>-->
-                    <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
-
-                </header-bar>
+                    <fullscreen class="header-pc" v-model="isFullscreen" style="margin-right: 10px;"/>
+                </header_bar>
             </Header>
+            <!--主内容-->
             <Content class="main-content-con">
                 <Layout class="main-layout-con">
+                    <!--页面路径-->
                     <div class="tag-nav-wrapper">
                         <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
                     </div>
+                    <!--页面内容-->
                     <Content class="content-wrapper">
                         <keep-alive :include="cacheList">
                             <router-view/>
@@ -40,20 +45,26 @@
                     </Content>
                 </Layout>
             </Content>
+            <!--底部-->
+            <Footer style="text-align: center;">
+                <font>{{$t('©2019 ')}} coolhao.{{$t('保留所有权利')}}.</font>
+            </Footer>
         </Layout>
     </Layout>
+
 </template>
+
 <script>
-    import RightLayer from '@/components/admin/main/components/right-layer'
-    import Language from '@/components/Language'
-    import Fullscreen from '@/components/admin/main/components/fullscreen'
-    import TagsNav from '@/components/admin/main/components/tags-nav'
-    import User from '@/components/admin/main/components/user'
-    import ABackTop from '@/components/admin/main/components/a-back-top'
-    import SideMenu from '@/components/admin/main/components/side-menu'
+    import header_bar from './components/header-bar';
+    import RightLayer from './components/right-layer'
+    import Language from './components/language'
+    import Fullscreen from './components/fullscreen'
+    import TagsNav from './components/tags-nav'
+    import User from './components/user'
+    import ABackTop from './components/a-back-top'
+    import SideMenu from './components/side-menu'
     import minLogo from '@/assets/admin/main/index_rabbit.gif'
-    import maxLogo from '@/assets/admin/main/index_rabbit.gif'
-    import HeaderBar from './components/header-bar'
+    import maxLogo from '@/assets/max-logo.png'
     import {mapMutations, mapActions} from 'vuex'
     import routers from '@/router'
     import {getNewTagList, routeEqual} from "@/utils";
@@ -66,7 +77,7 @@
             User,
             Language,
             SideMenu,
-            HeaderBar,
+            header_bar,
             TagsNav,
             ABackTop
         },
@@ -124,6 +135,9 @@
             // ...mapGetters([
             // 'errorCount'
             // ]),
+            adminName() {
+                return this.$store.state.base.admin_name
+            },
             tagNavList() {
                 return this.$store.state.app.tagNavList
             },
@@ -196,5 +210,5 @@
 </script>
 
 <style lang="less">
-    @import "./main.less";
+    @import './main.less';
 </style>

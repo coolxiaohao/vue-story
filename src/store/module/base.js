@@ -15,7 +15,7 @@ export default {
         access: '',
         admin_name: '',
         admin_id: 0,
-        single:localRead('single'),
+        single:getCookie('single'),
         unreadCount: 0,
         avatarImgPath:'',
         hasGetInfo: false,

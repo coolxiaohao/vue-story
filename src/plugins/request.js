@@ -8,7 +8,7 @@ import {getToken} from '@/utils'
 const service = axios.create({
     baseURL: '/api', //使用代理yarn remove [package]
     withCredentials: true, // send cookies when cross-domain requests
-    timeout: 3000 // request timeout
+    timeout: 5000 // request timeout
 })
 
 // request interceptor
@@ -54,7 +54,6 @@ service.interceptors.response.use(
             } else if (res.code === 500) {
                 this.$router.push('/500');
             }else if (res.code ===403) {
-                // to re-login
                 Message.error(this.$t('login.land-expiration'));
                 this.$router.replace({name:this.$store.state.app});
             }

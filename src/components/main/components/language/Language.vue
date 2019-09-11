@@ -3,7 +3,7 @@
         <Dropdown trigger="click" @on-click="selectLang">
             <a href="javascript:void(0)">
                 {{ title }}
-                <Icon :size="24" type="md-arrow-dropdown" />
+                <Icon :size="18" type="md-arrow-dropdown" />
             </a>
             <DropdownMenu slot="list">
                 <!--实际上selectLang是根据:name直接传的值 声明一个:key变量 用来声明lang值-->

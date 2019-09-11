@@ -70,11 +70,12 @@
         components: {},
         props: {},
         data() {
+            let single=JSON.parse(this.$store.state.base.single)
             return {
                 formInline: {
-                    username:this.$store.state.base.single.username,
-                    password: this.$store.state.base.single.password,
-                    single:this.$store.state.base.single.single,
+                    username:single.username ,
+                    password: single.password ,
+                    single:single.single,
                     form: '',
                     model: 'admin',
                 },
@@ -98,21 +99,28 @@
             handleSubmit(name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        // console.log(this.$store)
                         //先请求store文件下的xxxx/xxxx方法
                         this.$store.dispatch("login", this.formInline).then(d => {
                             if (d.code && d.code == 200) {
                                 //判断是否记住密码
+                                let single={}
                                 if (this.formInline.single){
-                                    let single={}
                                     single.username=this.formInline.username
                                     single.password=this.formInline.password
                                     single.single=this.formInline.single
-                                    this.setSingle(single)
+                                }else {
+                                    single.username=""
+                                    single.password=""
+                                    single.single=false
                                 }
+                                //解决路由加载问题 由退出路由返回的是一个对象
+                                //而刷新访问是一个字符串 所以直接存json字符串拿的时候再转对象
+                                this.setSingle(JSON.stringify(single))
                                 this.$Message.success(this.$t('login.login-success'));
+                                //路由跳转
                                 this.$router.push({path: '/'})
                             } else {
+                                this.$data.formInline.username=""
                                 this.$Message.error(d.msg);
                             }
                         });
@@ -126,17 +134,6 @@
             this.setPort('admin')
         },
         computed:{ //依赖值设置在此 也就是依赖其它的属性计算所得出最后的值
-            // userName(){
-            //     console.log(this.$store.state.base.single.username)
-            //     return this.$store.state.base.single.username
-            // },
-            // password(){
-            //     console.log(this.$store.state.base.single.password)
-            //     return  this.$store.state.base.single.password
-            // },
-            // single(){
-            //     return  this.$store.state.base.single.single
-            // },
         }
     }
 </script>

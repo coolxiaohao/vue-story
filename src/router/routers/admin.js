@@ -2,7 +2,7 @@ import Admin_Login from '@/views/admin/login/login'
 import error404 from '@/views/error-page/404.vue'
 import error401 from '@/views/error-page/401.vue'
 import error500 from '@/views/error-page/500.vue'
-import Main from '@/components/admin/main'
+import Main from '_c/main'
 // import Vue from  'vue'
 // import Router from "vue-router";
 /**
@@ -31,6 +31,15 @@ export default [
         },
         component: Admin_Login,
     },
+    // {
+    //     path: '/admin/main',
+    //     name: 'admin_main',
+    //     meta:{
+    //         // title: 'admin_login',
+    //         hideInMenu:true
+    //     },
+    //     component: ()=> import('@/components/main'),
+    // },
     {
         path: '/',
         name: 'admin_index',
