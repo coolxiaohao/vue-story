@@ -64,7 +64,7 @@
     import ABackTop from './components/a-back-top'
     import SideMenu from './components/side-menu'
     import minLogo from '@/assets/admin/main/index_rabbit.gif'
-    import maxLogo from '@/assets/max-logo.png'
+    import maxLogo from '@/assets/max-logo2.png'
     import {mapMutations, mapActions} from 'vuex'
     import routers from '@/router'
     import {getNewTagList, routeEqual} from "@/utils";
