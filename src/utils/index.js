@@ -99,7 +99,6 @@ export const getBreadCrumbList = (route, homeRoute) => {
     res = res.filter(item => {
         return !item.meta.hideInMenu
     })
-
     return [{...homeItem, to: homeRoute.path}, ...res]
 }
 

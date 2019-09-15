@@ -25,30 +25,20 @@ export default [
     {
         path: '/admin/login',
         name: 'admin_login',
-        meta:{
+        meta: {
             // title: 'admin_login',
-            hideInMenu:true
+            hideInMenu: true
         },
         component: Admin_Login,
     },
-    // {
-    //     path: '/admin/main',
-    //     name: 'admin_main',
-    //     meta:{
-    //         // title: 'admin_login',
-    //         hideInMenu:true
-    //     },
-    //     component: ()=> import('@/components/main'),
-    // },
     {
         path: '/',
         name: 'admin_index',
         redirect: '/admin/index',
         component: Main,
         meta: {
-            // hideInMenu: true,
             icon: 'md-home',
-            // title: "admin_index",
+            title: "首页",
             notCache: true
         },
         children: [
@@ -62,18 +52,53 @@ export default [
                     notCache: true,
                 },
                 component: () => import('@/views/admin')
-            }
+            },
+        ]
+    },
+    {
+        path: '/admin/index/list',
+        name: 'admin_model',
+        redirect: '/admin/index/list',
+        component: Main,
+        meta: {
+            // hideInMenu: true,
+            icon: 'md-ionitron',
+            title: "管理员",
+            notCache: true
+        },
+        children: [
+            {
+                path:'/admin/index/list',
+                name: 'admin_index_list',
+                meta: {
+                    icon: 'md-people',
+                    title: '管理员列表',
+                    notCache: true,
+                },
+                component: () => import('@/views/admin/admin-list')
+            },
+            // {
+            //     path:'/admin/index/list2',
+            //     name: 'admin_index_list2',
+            //     meta: {
+            //         icon: 'md-people',
+            //         title: '管理员列表2',
+            //         notCache: true,
+            //     },
+            //     component: () => import('@/views/admin/admin-list')
+            // }
         ]
     },
     {
         path: '/error_page',
         name: 'error_page',
         redirect: '/error_page',
-        meta:{
-            title:"错误页面",
-            icon: 'md-document'
+        meta: {
+            title: "错误页面",
+            icon: 'md-document',
+            hideInMenu: true
         },
-        component: ()=> import('@/App.vue'),
+        component: () => import('@/App.vue'),
         children: [
             {
                 path: '/404',
@@ -81,7 +106,7 @@ export default [
                 component: error404,
                 meta: {
                     title: "404",
-                    icon:"md-outlet"
+                    icon: "md-outlet"
                 }
             },
             {

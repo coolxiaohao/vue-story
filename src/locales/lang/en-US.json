@@ -1,1 +1,47 @@
-{"401":"401","404":"404","500":"500","login":{"error404":"This is a home page","login_title":"Sign In","form1":"Account Login","form2":"Fast Login","form3":"Third Party Login","login-name-null":"please enter user name","login-pwd-null":"Please enter password","login-pwd-error":"Password length cannot be less than 6 bits","pwd-forgot":"forget the password?","remember-pwd":"remember the password","login-success":"login succeeds！","login-error":"Bad request!","land-expiration":"You have logged out, please log in again!"},"error_page":"error page","error":{"401":"Oh~~ you do not have access to this page ~","404":"Oh~~ your page seems to fly away ~","500":"Oh~~ Who knows what happened to the server ~"},"admin_login":"admin login","index":"home","admin_index":"index","home_index":"home","app_index":"home","测试谷歌翻译插件":"Test the Google Translate Plugin","我也不知道这是啥":"I don't know if this is 啥","这是地三方登陆":"This is a third-party login","浩源最帅":"Haoyuan is the most handsome","退出成功":"exit successfully","主题风格设置":"Theme style setting","个人信息":"Personal information","消息中心":"Message Center","退出登录":"sign out","©2019 ":"©2019","账号已注销":"Account has been logged out","保留所有权利":"all rights reserved","欢迎您":"Welcome"}
+{
+  "401": "401",
+  "404": "404",
+  "500": "500",
+  "login": {
+    "error404": "This is a home page",
+    "login_title": "Sign In",
+    "form1": "Account Login",
+    "form2": "Fast Login",
+    "form3": "Third Party Login",
+    "login-name-null": "please enter user name",
+    "login-pwd-null": "Please enter password",
+    "login-pwd-error": "Password length cannot be less than 6 bits",
+    "pwd-forgot": "forget the password?",
+    "remember-pwd": "remember the password",
+    "login-success": "login succeeds！",
+    "login-error": "Bad request!",
+    "land-expiration": "You have logged out, please log in again!"
+  },
+  "error_page": "error page",
+  "error": {
+    "401": "Oh~~ you do not have access to this page ~",
+    "404": "Oh~~ your page seems to fly away ~",
+    "500": "Oh~~ Who knows what happened to the server ~"
+  },
+  "admin_model": "admin model",
+  "admin_index_list": "list management",
+  "admin_login": "admin login",
+  "admin_table": "background table",
+  "index": "home",
+  "admin_index": "index",
+  "home_index": "home",
+  "app_index": "home",
+  "测试谷歌翻译插件": "Test the Google Translate Plugin",
+  "我也不知道这是啥": "I don't know if this is 啥",
+  "这是地三方登陆": "This is a third-party login",
+  "浩源最帅": "Haoyuan is the most handsome",
+  "退出成功": "exit successfully",
+  "主题风格设置": "Theme style setting",
+  "个人信息": "Personal information",
+  "消息中心": "Message Center",
+  "退出登录": "sign out",
+  "©2019 ": "©2019",
+  "账号已注销": "Account has been logged out",
+  "保留所有权利": "all rights reserved",
+  "欢迎您": "Welcome"
+}
