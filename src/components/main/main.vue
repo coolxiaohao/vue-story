@@ -2,13 +2,13 @@
     <Layout class="main">
         <!--左侧边栏-->
         <Sider breakpoint="md" hide-trigger collapsible :collapsed-width="64" :width="264" v-model="collapsed">
-            <side-menu accordion ref="sideMenu"  :active-name="$route.name" :collapsed="collapsed"
+            <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed"
                        @on-select="turnToPage"
                        :menu-list="menuList">
                 <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
                 <div class="logo-con">
                     <img v-show="!collapsed" style="max-width: 254px;" :src="maxLogo" key="max-logo"/>
-                    <img v-show="collapsed"  style="max-width: 48px;" :src="minLogo" key="min-logo"/>
+                    <img v-show="collapsed" style="max-width: 48px;" :src="minLogo" key="min-logo"/>
                 </div>
                 <h2 v-show="!collapsed" style="text-align: center;margin-top: 0.5rem;margin-bottom: 1rem;">
                     {{$t('欢迎您')}}!{{adminName}}</h2>
@@ -46,10 +46,11 @@
                 </Layout>
             </Content>
             <!--底部-->
-            <Footer style="text-align: center;">
-                <font>{{$t('©2019 ')}} coolhao.{{$t('保留所有权利')}}.</font>
+            <Footer>
+                <font>{{$t('©2019 ')}} coolhao.all rights reserved.</font>
             </Footer>
         </Layout>
+
     </Layout>
 
 </template>

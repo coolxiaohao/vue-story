@@ -8,6 +8,7 @@
 
 <script>
     import Table from '_c/tables'
+    import {forEach,getRelativeTime} from "@/utils/tools";
 
     export default {
         name: "admin_list",
@@ -19,49 +20,56 @@
             return {
                 columns: [
                     {
-                        title: 'Name',
-                        key: 'name'
+                        title: this.$t('管理员账号'),
+                        key: 'adminName'
                     },
                     {
-                        title: 'Age',
-                        key: 'age'
+                        title: this.$t('管理员电话'),
+                        key: 'phone'
                     },
                     {
-                        title: 'Address',
-                        key: 'address'
-                    }
+                        title: this.$t('权限组名称'),
+                        key: 'rule_name'
+                    },
+                    {
+                        title: this.$t('添加时间'),
+                        key: 'add_time'
+                    },
+
                 ],
-                data: [
-                    {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    }
-                ]
+                data: []
             }
         },
-        methods: {},
+        methods: {
+            getAllAdmin(){
+                // console.log(123456)
+                this.$store.dispatch("getAllAdmin").then(d => {
+                    if (d.code && d.code === 200) {
+                        forEach(d.data,(item)=>{
+                            item.rule_name=item.rule.rulename
+                            if (item.addTime>0){
+                                item.add_time=getRelativeTime(item.addTime)
+                            }else {
+                                item.add_time='-'
+                            }
+
+                        })
+                        this.data=d.data
+
+                    } else {
+                        this.$Message.error(d.msg);
+                    }
+                });
+            }
+        },
+        watch:{
+            data(){
+                // this.getAllAdmin()
+            }
+        },
         mounted() {     /*请求数据，操作dom , 放在这个里面  mounted*/
             //模板编译完成
+            this.getAllAdmin()
         },
     }
 </script>

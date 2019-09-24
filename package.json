@@ -9,7 +9,7 @@
     "i18n:report": "vue-cli-service i18n:report --src=src/views/**/**/*.vue --locales=src/locales/lang/*.json",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "translation": "vue-cli-service translation --src=src/components/**/*.vue --locales=src/locales/lang/*.json"
+    "translation": "vue-cli-service translation --src=src/views/**/**/*.vue --locales=src/locales/lang/*.json"
   },
   "vuePlugins": {
     "service": [

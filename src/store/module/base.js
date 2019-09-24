@@ -6,54 +6,54 @@ import {
     getCookie,
     getToken,
 } from '@/utils' //引用之前写好的本地储存读写操作的两个方法
-import {login,logout,getAdminInfo} from '@/api/admin'
+import {login, logout, getAllAdmin, getAdminInfo} from '@/api/admin'
 //请查看vuex官方文档 https://vuex.vuejs.org/zh/guide/state.html
 export default {
-    state:{ //单一状态树
+    state: { //单一状态树
         local: localRead('local'),
         token: getToken(),
         access: '',
         admin_name: '',
         admin_id: 0,
-        single:getCookie('single'),
+        single: getCookie('single'),
         unreadCount: 0,
-        avatarImgPath:'',
+        avatarImgPath: '',
         hasGetInfo: false,
     },
-    mutations:{ //变更状态 必須為同步
-        setAvatar (state, avatarPath) {
+    mutations: { //变更状态 必須為同步
+        setAvatar(state, avatarPath) {
             state.avatarImgPath = avatarPath
         },
-        setToken (state, token) {
+        setToken(state, token) {
             state.token = token
             setToken(token)
         },
-        setAdminName (state, adminName) {
+        setAdminName(state, adminName) {
             state.admin_name = adminName
         },
-        setAdminId (state, adminId) {
+        setAdminId(state, adminId) {
             state.admin_id = adminId
         },
-        setLocal (state, lang) {
+        setLocal(state, lang) {
             //存入本地储存
             localSave('local', lang)
             //立即更新
             state.local = lang
         },
-        setHasGetInfo (state, status) {
+        setHasGetInfo(state, status) {
             state.hasGetInfo = status
         },
-        setSingle(state,single){
-            setCookie('single',single)
-            state.single=single
+        setSingle(state, single) {
+            setCookie('single', single)
+            state.single = single
         },
     },
-    actions:{ //异步发行
+    actions: { //异步发行
         login({commit}, userInfo) {
-            const { username, password,form,model } = userInfo
+            const {username, password, form, model} = userInfo
             return new Promise((resolve, reject) => {
-                login({ username: username.trim(), password: password,form:form,model:model }).then(response => {
-                    const { data } = response;
+                login({username: username.trim(), password: password, form: form, model: model}).then(response => {
+                    const {data} = response;
                     commit('setToken', data.token)
                     // console.log(getToken())
                     // setToken(data.token)
@@ -65,7 +65,7 @@ export default {
             })
         },
         // 获取管理员相关信息
-        getAdminInfo ({ state, commit }) {
+        getAdminInfo({state, commit}) {
             // console.log(state.token)
             return new Promise((resolve, reject) => {
                 try {
@@ -87,7 +87,7 @@ export default {
             })
         },
         // 退出登录
-        handleLogOut ({ state, commit }) {
+        handleLogOut({state, commit}) {
             return new Promise((resolve, reject) => {
                 logout(state.token).then(() => {
                     commit('setToken', '')
@@ -102,15 +102,25 @@ export default {
                 // resolve()
             })
         },
+        getAllAdmin() {
+            return new Promise((resolve, reject) => {
+                getAllAdmin().then(res => {
+                    // const data = res.data
+                    resolve(res)
+                }).catch(error => {
+                    reject(error)
+                })
+            })
+        }
     }
 }
 // const state = {
-    // token: getToken(),
-    // local: localRead('local'),
-    // name: '',
-    // avatar: '',
-    // introduction: '',
-    // roles: []
+// token: getToken(),
+// local: localRead('local'),
+// name: '',
+// avatar: '',
+// introduction: '',
+// roles: []
 // }
 // console.log(state)
 // const mutations = {
@@ -128,12 +138,12 @@ export default {
 //         localSave('local', lang)
 //         state.local = lang
 //     },
-    // SET_AVATAR: (state, avatar) => {
-    //     state.avatar = avatar
-    // },
-    // SET_ROLES: (state, roles) => {
-    //     state.roles = roles
-    // }
+// SET_AVATAR: (state, avatar) => {
+//     state.avatar = avatar
+// },
+// SET_ROLES: (state, roles) => {
+//     state.roles = roles
+// }
 // }
 
 /*const actions = {

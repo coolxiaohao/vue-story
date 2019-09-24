@@ -28,6 +28,13 @@ export const logout = (token) => {
     })
 }
 
+export const getAllAdmin=()=>{
+    return request({
+        url: '/admin/getAll',
+        method: 'get'
+    })
+}
+
 // export function getInfo(token) {
 //     return request({
 //         url: '/routers/info',
