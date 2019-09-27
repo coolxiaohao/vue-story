@@ -8,7 +8,7 @@ import {getToken} from '@/utils'
 const service = axios.create({
     baseURL: '/api', //使用代理yarn remove [package]
     withCredentials: true, // send cookies when cross-domain requests
-    timeout: 5000 // request timeout
+    timeout: 3000 // request timeout
 })
 
 // request interceptor
@@ -43,19 +43,24 @@ service.interceptors.response.use(
      */
     response => {
         const res = response.data
+        // console.log(response)
         // if the custom code is not 20000, it is judged as an error.
         if (res.code !== 200) {
-            Message.error(res.msg || 'error');
+            // Message.error(res.msg || 'error');
             if (res.code === 401) {
+                // console.log(401)
                 // this.next({name:'401'})
                 this.$router.push('/401');
             } else if (res.code === 404) {
+                // console.log(404)
                 this.$router.push('/404');
             } else if (res.code === 500) {
+                // console.log(500)
                 this.$router.push('/500');
-            }else if (res.code ===403) {
+            } else if (res.code === 302) {
+                // console.log(302)
                 Message.error(this.$t('login.land-expiration'));
-                this.$router.replace({name:this.$store.state.app});
+                this.$router.replace({name: this.$store.state.app});
             }
             return Promise.reject(res.msg || 'error')
         } else {
@@ -63,7 +68,8 @@ service.interceptors.response.use(
         }
     },
     error => {
-        Message.error(error.message)
+        // console.log(error.code)
+        // Message.error(error.message)
         return Promise.reject(error)
     }
 )

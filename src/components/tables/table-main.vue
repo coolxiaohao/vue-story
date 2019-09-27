@@ -213,6 +213,7 @@
             /*data数据处理 表数据*/
             handleTableData () {
                 this.tableData = this.value.map((item, index) => {
+                    // console.log(item.action)
                     let res = item
                     res.initRowIndex = index
                     return res

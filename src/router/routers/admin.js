@@ -77,16 +77,16 @@ export default [
                 },
                 component: () => import('@/views/admin/admin-list')
             },
-            // {
-            //     path:'/admin/index/list2',
-            //     name: 'admin_index_list2',
-            //     meta: {
-            //         icon: 'md-people',
-            //         title: '管理员列表2',
-            //         notCache: true,
-            //     },
-            //     component: () => import('@/views/admin/admin-list')
-            // }
+            {
+                path:'/admin/index/add_admin',
+                name: 'add_admin',
+                meta: {
+                    icon: 'md-people',
+                    title: '新增管理员',
+                    notCache: true,
+                },
+                component: () => import('@/views/admin/add-admin')
+            }
         ]
     },
     {

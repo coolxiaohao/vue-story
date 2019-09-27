@@ -72,6 +72,7 @@
         data() {
             let single=JSON.parse(this.$store.state.base.single)
             return {
+                clickTime:true,
                 formInline: {
                     username:single.username ,
                     password: single.password ,
@@ -97,37 +98,50 @@
                 'setSingle'
             ]),
             handleSubmit(name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        //先请求store文件下的xxxx/xxxx方法
-                        this.$store.dispatch("login", this.formInline).then(d => {
-                            if (d.code && d.code == 200) {
-                                //判断是否记住密码
-                                let single={}
-                                if (this.formInline.single){
-                                    single.username=this.formInline.username
-                                    single.password=this.formInline.password
-                                    single.single=this.formInline.single
-                                }else {
-                                    single.username=""
-                                    single.password=""
-                                    single.single=false
-                                }
-                                //解决路由加载问题 由退出路由返回的是一个对象
-                                //而刷新访问是一个字符串 所以直接存json字符串拿的时候再转对象
-                                this.setSingle(JSON.stringify(single))
-                                this.$Message.success(this.$t('login.login-success'));
-                                //路由跳转
-                                this.$router.push({path: '/'})
+                // let clickTime=true;
+                if (this.clickTime){ //防止一直点登陆
+                    const $this=this
+                    // console.log(this.clickTime)
+                    this.clickTime=!this.clickTime
+                    setTimeout(function () {
+                        $this.$refs[name].validate((valid) => {
+                            if (valid) {
+                                //先请求store文件下的xxxx/xxxx方法
+                                $this.$store.dispatch("login", $this.formInline).then(d => {
+                                    if (d.code && d.code == 200) {
+                                        //判断是否记住密码
+                                        let single={}
+                                        if ($this.formInline.single){
+                                            single.username=$this.formInline.username
+                                            single.password=$this.formInline.password
+                                            single.single=$this.formInline.single
+                                        }else {
+                                            single.username=""
+                                            single.password=""
+                                            single.single=false
+                                        }
+                                        //解决路由加载问题 由退出路由返回的是一个对象
+                                        //而刷新访问是一个字符串 所以直接存json字符串拿的时候再转对象
+                                        $this.setSingle(JSON.stringify(single))
+                                        $this.$Message.success($this.$t('login.login-success'));
+                                        //路由跳转
+                                        $this.$router.push({path: '/'})
+                                    } else {
+                                        $this.$data.formInline.username=""
+                                        $this.$Message.error(d.msg);
+                                    }
+                                });
                             } else {
-                                this.$data.formInline.username=""
-                                this.$Message.error(d.msg);
+                                $this.$Message.error($this.$t('login.login-error'));
                             }
-                        });
-                    } else {
-                        this.$Message.error(this.$t('login.login-error'));
-                    }
-                })
+                        })
+                        // this.clickTime=!this.clickTime
+                    },1000)
+                    this.clickTime=!this.clickTime
+                } else {
+                    this.$Message.error(this.$t('请勿重复登陆'))
+                }
+
             }
         },
         mounted(){

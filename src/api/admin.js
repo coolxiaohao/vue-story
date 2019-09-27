@@ -35,6 +35,36 @@ export const getAllAdmin=()=>{
     })
 }
 
+export const delAdmin=(id)=>{
+    return request({
+        url:'/admin/deleteAdmin',
+        method:'post',
+        params:{
+            id:id,
+        }
+    })
+}
+
+export const removeFile=(filename)=>{
+    return request({
+        url:'/upload/removeFile',
+        method:'post',
+        params:{
+            path:filename,
+        }
+    })
+}
+
+export const insertAdmin=(admin)=>{
+    return request({
+        url:'/admin/insertAdmin',
+        method:'post',
+        params:{
+            admin:admin
+        }
+    })
+}
+
 // export function getInfo(token) {
 //     return request({
 //         url: '/routers/info',

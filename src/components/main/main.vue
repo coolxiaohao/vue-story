@@ -17,7 +17,7 @@
         <Layout>
             <!--头部-->
             <Header class="header-con">
-                <header_bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
+                <header_bar :collapsed="collapsed" :sonRefresh="sonRefresh" @on-coll-sonrefresh-change="handlesonRefreshChange" @on-coll-change="handleCollapsedChange">
                     <right-layer/>
                     <!--用户头像插件-->
                     <user :message-unread-count="unreadCount" style="margin-right: 10px;" :user-avatar="userAvatar"/>
@@ -39,7 +39,7 @@
                     <!--页面内容-->
                     <Content class="content-wrapper">
                         <keep-alive :include="cacheList">
-                            <router-view/>
+                            <router-view v-if="sonRefresh"/>
                         </keep-alive>
                         <ABackTop :height="100" :bottom="80" :right="50" container=".content-wrapper"></ABackTop>
                     </Content>
@@ -116,6 +116,9 @@
             handleCollapsedChange(state) {
                 this.collapsed = state
             },
+            handlesonRefreshChange(state){
+                this.sonRefresh = state
+            },
             handleCloseTag(res, type, route) {
                 if (type !== 'others') {
                     if (type === 'all') {
@@ -179,6 +182,7 @@
         },
         data() {
             return {
+                sonRefresh:true,
                 collapsed: false,
                 minLogo,
                 maxLogo,

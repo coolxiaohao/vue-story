@@ -6,7 +6,8 @@ import {
     getCookie,
     getToken,
 } from '@/utils' //引用之前写好的本地储存读写操作的两个方法
-import {login, logout, getAllAdmin, getAdminInfo} from '@/api/admin'
+// import {getDate} from '@/utils/tools'
+import {removeFile,insertAdmin,login, logout, getAllAdmin, getAdminInfo, delAdmin} from '@/api/admin'
 //请查看vuex官方文档 https://vuex.vuejs.org/zh/guide/state.html
 export default {
     state: { //单一状态树
@@ -70,14 +71,19 @@ export default {
             return new Promise((resolve, reject) => {
                 try {
                     getAdminInfo(state.token).then(res => {
-                        const data = res.data
-                        // console.log(res)
-                        commit('setAvatar', data.img)
-                        commit('setAdminName', data.adminName)
-                        commit('setAdminId', data.id)
-                        // commit('setAccess', data.access)
-                        commit('setHasGetInfo', true)
-                        resolve(data)
+                        if(res.code!==200){
+                            this.$Message.error("请重新登录！");
+                            this.$router.push({path: '/'})
+                        }else {
+                            const data = res.data
+                            // console.log(res)
+                            commit('setAvatar', data.img)
+                            commit('setAdminName', data.adminName)
+                            commit('setAdminId', data.id)
+                            // commit('setAccess', data.access)
+                            commit('setHasGetInfo', true)
+                            resolve(data)
+                        }
                     }).catch(err => {
                         reject(err)
                     })
@@ -102,12 +108,44 @@ export default {
                 // resolve()
             })
         },
+        //获取所有admin
         getAllAdmin() {
             return new Promise((resolve, reject) => {
                 getAllAdmin().then(res => {
                     // const data = res.data
                     resolve(res)
                 }).catch(error => {
+                    reject(error)
+                })
+            })
+        },
+        //删除管理员
+        deleteAdmin({commit},id){
+            // console.log(id)
+            return new Promise((resolve,reject)=>{
+                delAdmin(id).then(res=>{
+                    resolve(res)
+                }).catch(error=>{
+                    reject(error)
+                })
+            })
+        },
+        //删除图片
+        removeImg({commit},filename){
+            return new Promise((resolve,reject)=>{
+                removeFile(filename).then(res=>{
+                    resolve(res)
+                }).catch(error=>{
+                    reject(error)
+                })
+            })
+        },
+        //新增管理员
+        insertAdmin({commit},admin){
+            return new Promise((resolve,reject)=>{
+                insertAdmin(admin).then(res=>{
+                    resolve(res)
+                }).catch(error=>{
                     reject(error)
                 })
             })
